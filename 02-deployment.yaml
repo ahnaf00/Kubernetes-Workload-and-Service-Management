@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ahnaf-tripplanner-deployment
+  namespace: travel-dev
+  labels:
+    app: tripplanner
+    environment: development
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: tripplanner
+  template:
+    metadata:
+      labels:
+        app: tripplanner
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.27
+          env:
+            - name: NGINX_PORT
+              value: "8017"
+          command: ["/bin/sh", "-c"]
+          args:
+            - sed -i "s/listen *80;/listen ${NGINX_PORT};/g" /etc/nginx/conf.d/default.conf && nginx -g "daemon off;"
+          ports:
+            - containerPort: 8017
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
