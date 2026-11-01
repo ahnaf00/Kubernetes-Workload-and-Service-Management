@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Service
+metadata:
+  name: ahnaf-tripplanner-service
+  namespace: travel-dev
+  labels:
+    app: tripplanner
+    environment: development
+spec:
+  type: NodePort
+  selector:
+    app: tripplanner
+  ports:
+  - port: 80
+    targetPort: 8017
+    NodePort: 30097
