@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ahnaf-tripplanner-db
+  namespace: travel-dev
+  labels:
+    app: tripplanner-db
+    environment: development
+spec:
+  serviceName: ahnaf-tripplanner-db-service
+  replicas: 2
+  selector:
+    matchLabels:
+      app: tripplanner-db
+  template:
+    metadata:
+      labels:
+        app: tripplanner-db
+        environment: development
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16
+          ports:
+            - containerPort: 5432
+              name: postgres
+          env:
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+            - name: POSTGRES_DB
+              value: "postgress"
+            - name: POSTGRES_USER
+              value: "postgress"
+            - name: POSTGRES_PASSWORD
+              value: "postgress"
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql/data/
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "250m"
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
