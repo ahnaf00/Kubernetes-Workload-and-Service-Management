@@ -11,14 +11,15 @@ spec:
   selector:
     app: tripplanner
   ports:
-  - port: 80
-    targetPort: 8017
-    nodePort: 30097
+    - port: 80
+      targetPort: 8017
+      nodePort: 30097
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: ahnaf-tripplanner-db-service
+  namespace: travel-dev
   labels:
     app: tripplanner-db
 spec:
@@ -26,5 +27,5 @@ spec:
   selector:
     app: tripplanner-db
   ports:
-  - port: 5432
-    name: postgres
+    - port: 5432
+      name: postgres
