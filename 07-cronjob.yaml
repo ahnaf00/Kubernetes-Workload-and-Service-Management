@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: anaf-tripplanner-cronjob
+  name: ahnaf-tripplanner-cronjob
   namespace: travel-dev
 spec:
   schedule: "*/5 * * * *"
@@ -14,7 +14,7 @@ spec:
       template:
         metadata:
           labels:
-            apps: tripplanner-maintenance
+            app: tripplanner-maintenance
         spec:
           restartPolicy: Never
           containers:
@@ -23,6 +23,6 @@ spec:
               command: ["/bin/sh", "-c"]
               args:
                 - |
-                  echo "[CRON] Maintenance run at $(date -u +%Y-%m-%dT%H:%M:%SZ)"31                   
-                  echo "VACUUM / ANALYZE simulated on tripplanner DB"; sleep 332                   
+                  echo "[CRON] Maintenance run at $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+                  echo "VACUUM / ANALYZE simulated on tripplanner DB"; sleep 3
                   echo "[CRON] Maintenance finished"

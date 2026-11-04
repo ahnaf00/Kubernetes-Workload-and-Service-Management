@@ -18,9 +18,9 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
             - |
-              echo "[JOB] tripplanner DB cleanup started at $(date)"25               
-              echo "Removing expired booking sessions&&."; sleep 526               
-              echo "Purging stale itinerary drafts&&."; sleep 527               
+              echo "[JOB] tripplanner DB cleanup started at $(date)"
+              echo "Removing expired booking sessions..."; sleep 5
+              echo "Purging stale itinerary drafts..."; sleep 5
               echo "[JOB] Cleanup completed successfully at $(date)"
           resources:
             requests:
