@@ -11,9 +11,10 @@ spec:
         app: ahnaf-tripplanner-job
         environment: development
     spec:
+      restartPolicy: Never
       containers:
-        - name: job
-          image: cleanup
+        - name: cleanup
+          image: busybox:1.36
           command: ["/bin/sh", "-c"]
           args:
             - |
@@ -21,10 +22,10 @@ spec:
               echo "Removing expired booking sessions&&."; sleep 526               
               echo "Purging stale itinerary drafts&&."; sleep 527               
               echo "[JOB] Cleanup completed successfully at $(date)"
-      resources:
-        requests:
-          memory: "32Mi"
-          cpu: "50m"
-        limits:
-          memory: "64Mi"
-          cpu: "100m"
+          resources:
+            requests:
+              memory: "32Mi"
+              cpu: "50m"
+            limits:
+              memory: "64Mi"
+              cpu: "100m"
